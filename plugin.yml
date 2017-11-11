@@ -1,9 +1,16 @@
 name: SimpleAutoMessage
 main: com.vandendaelen.simpleautomessage.SimpleAutoMessage
-version: 0.2
+version: 0.3
 author: LotuxPunk
 website: https://github.com/LotuxPunk/SimpleAutoMessage
 commands:
   samtime:
     description: Set time between 2 messages
     usage: /samtime {minutes}
+permissions:
+  simpleautomessage.*:
+    description: Gives access to all SAM commands
+    children:
+      simpleautomessage.settime:
+        description: Allow you to set time between 2 messages (/samtime)
+        default: op
