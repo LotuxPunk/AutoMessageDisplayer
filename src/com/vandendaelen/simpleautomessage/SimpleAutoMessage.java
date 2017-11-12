@@ -2,6 +2,7 @@ package com.vandendaelen.simpleautomessage;
 
 import java.io.File;
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -22,8 +23,21 @@ public class SimpleAutoMessage extends JavaPlugin {
 		System.out.println("Waw, an amazing plugin powered by LotuxPunk ! :-)");
 		this.getCommand("samtime").setExecutor(new CommandSamTime(this));
 		createConfig();
-		if(getConfig().getBoolean("Enable"))
-			messageDisplayer();
+		
+		this.getConfig().addDefault("Random", false);
+		this.getConfig().options().copyDefaults(true);
+		saveConfig();
+		
+		//Enable display of messages
+		if(getConfig().getBoolean("Enable")) {
+			if(getConfig().getBoolean("Random")) {
+				messageRandomDisplayer();
+			} else {
+				messageDisplayer();
+			}
+		}
+			
+		
 	}
 	
 	private void createConfig() {
@@ -58,6 +72,24 @@ public class SimpleAutoMessage extends JavaPlugin {
 				iMessages++;
 				if (iMessages >= listMessages.size())
 					iMessages = 0;				
+			}
+        	
+        }, 0, this.getConfig().getInt("Time")*60*20);
+	}
+	
+	private void messageRandomDisplayer() {
+		Random randomGenerator = new Random();
+		List<String> listMessages = getConfig().getStringList("Messages");
+		System.out.println(listMessages.size()+" messages loaded");
+		BukkitScheduler scheduler = getServer().getScheduler();
+        scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
+
+			@Override
+			public void run() {
+				
+				for(Player player : Bukkit.getOnlinePlayers()) {
+					player.sendMessage(listMessages.get(randomGenerator.nextInt(listMessages.size())));
+				}			
 			}
         	
         }, 0, this.getConfig().getInt("Time")*60*20);
