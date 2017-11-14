@@ -2,10 +2,12 @@
 Time: 15
 #Auto-Messages !
 Enable: true
+
+#Broadcast randomly your messages
+Random enabled: false
+
 Messages:
   - "A simple string"
   - "Another string"
   - "Don't forget to support/rate LotuxPunk on Curse/Bukkit website !"
 
-#Broadcast randomly your messages
-Random: false

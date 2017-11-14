@@ -9,8 +9,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import com.vandendaelen.simpleautomessage.Commands.CommandSamRandom;
+import com.vandendaelen.simpleautomessage.Commands.CommandSamTime;
+
 public class SimpleAutoMessage extends JavaPlugin {
-	int iMessages = 0;
+	public static final String RANDOM_CONFIG = "Random enabled";
+	public static final String TIME_CONFIG = "Time";
+	private int iMessages = 0;
 	
 	@Override
 	public void onDisable() {
@@ -21,16 +26,17 @@ public class SimpleAutoMessage extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		System.out.println("Waw, an amazing plugin powered by LotuxPunk ! :-)");
-		this.getCommand("samtime").setExecutor(new CommandSamTime(this));
+		this.getCommand("samtime").setExecutor(new CommandSamTime(this, TIME_CONFIG));
+		this.getCommand("samrandom").setExecutor(new CommandSamRandom(this, RANDOM_CONFIG));
 		createConfig();
 		
-		this.getConfig().addDefault("Random", false);
+		this.getConfig().addDefault(RANDOM_CONFIG, false);
 		this.getConfig().options().copyDefaults(true);
 		saveConfig();
 		
 		//Enable display of messages
 		if(getConfig().getBoolean("Enable")) {
-			if(getConfig().getBoolean("Random")) {
+			if(getConfig().getBoolean(RANDOM_CONFIG)) {
 				messageRandomDisplayer();
 			} else {
 				messageDisplayer();
@@ -92,7 +98,7 @@ public class SimpleAutoMessage extends JavaPlugin {
 				}			
 			}
         	
-        }, 0, this.getConfig().getInt("Time")*60*20);
+        }, 0, this.getConfig().getInt(TIME_CONFIG)*60*20);
 	}
 	
 }
