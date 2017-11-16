@@ -1,6 +1,6 @@
 name: AutoMessageDisplayer
 main: com.vandendaelen.automessagedisplayer.AutoMessageDisplayer
-version: 0.5
+version: 0.5.1
 author: LotuxPunk
 website: https://github.com/LotuxPunk/AutoMessageDisplayer
 commands:
