@@ -1,4 +1,4 @@
-package com.vandendaelen.simpleautomessage.Commands;
+package com.vandendaelen.automessagedisplayer.Commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -6,12 +6,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-public class CommandSamTime implements CommandExecutor {
+public class CommandAmdTime implements CommandExecutor {
 
 	private Plugin plugin;
 	private String TIME_CONFIG;
 
-	public CommandSamTime(Plugin pl, String r) {
+	public CommandAmdTime(Plugin pl, String r) {
 		plugin = pl;
 		TIME_CONFIG = r;
 	}

@@ -1,22 +1,22 @@
-name: SimpleAutoMessage
-main: com.vandendaelen.simpleautomessage.SimpleAutoMessage
+name: AutoMessageDisplayer
+main: com.vandendaelen.automessagedisplayer.AutoMessageDisplayer
 version: 0.5
 author: LotuxPunk
-website: https://github.com/LotuxPunk/SimpleAutoMessage
+website: https://github.com/LotuxPunk/AutoMessageDisplayer
 commands:
-  samtime:
+  amdtime:
     description: Set time between 2 messages
-    usage: /samtime {minutes}
-  samrandom:
+    usage: /amdtime {minutes}
+  amdrandom:
     description: Enable random broadcast
-    usage: /samrandom true/false
+    usage: /amdrandom true/false
 permissions:
-  simpleautomessage.*:
-    description: Gives access to all SAM commands
+  automessagedisplayer.*:
+    description: Gives access to all AMD commands
     children:
-      simpleautomessage.settime:
+      automessagedisplayer.settime:
         description: Allow you to set time between 2 messages (/samtime)
         default: op
-      simpleautomessage.setrandom:
+      automessagedisplayer.setrandom:
         description: Allow top set random broadcast
         default: op

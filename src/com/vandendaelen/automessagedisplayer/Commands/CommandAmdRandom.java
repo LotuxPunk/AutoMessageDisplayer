@@ -1,4 +1,4 @@
-package com.vandendaelen.simpleautomessage.Commands;
+package com.vandendaelen.automessagedisplayer.Commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -6,12 +6,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-public class CommandSamRandom implements CommandExecutor {
+public class CommandAmdRandom implements CommandExecutor {
 
 	private String RANDOM_CONFIG;
 	private Plugin plugin;
 
-	public CommandSamRandom(Plugin pl, String r) {
+	public CommandAmdRandom(Plugin pl, String r) {
 		plugin = pl;
 		RANDOM_CONFIG = r;
 	}

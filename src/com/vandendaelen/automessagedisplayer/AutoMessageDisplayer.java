@@ -1,4 +1,4 @@
-package com.vandendaelen.simpleautomessage;
+package com.vandendaelen.automessagedisplayer;
 
 import java.io.File;
 import java.util.List;
@@ -9,10 +9,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
-import com.vandendaelen.simpleautomessage.Commands.CommandSamRandom;
-import com.vandendaelen.simpleautomessage.Commands.CommandSamTime;
+import com.vandendaelen.automessagedisplayer.Commands.CommandAmdRandom;
+import com.vandendaelen.automessagedisplayer.Commands.CommandAmdTime;
 
-public class SimpleAutoMessage extends JavaPlugin {
+public class AutoMessageDisplayer extends JavaPlugin {
 	public static final String RANDOM_CONFIG = "Random enabled";
 	public static final String TIME_CONFIG = "Time";
 	private int iMessages = 0;
@@ -26,8 +26,8 @@ public class SimpleAutoMessage extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		System.out.println("Waw, an amazing plugin powered by LotuxPunk ! :-)");
-		this.getCommand("samtime").setExecutor(new CommandSamTime(this, TIME_CONFIG));
-		this.getCommand("samrandom").setExecutor(new CommandSamRandom(this, RANDOM_CONFIG));
+		this.getCommand("amdtime").setExecutor(new CommandAmdTime(this, TIME_CONFIG));
+		this.getCommand("amdrandom").setExecutor(new CommandAmdRandom(this, RANDOM_CONFIG));
 		createConfig();
 		
 		this.getConfig().addDefault(RANDOM_CONFIG, false);
