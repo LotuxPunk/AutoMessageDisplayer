@@ -21,7 +21,7 @@ public class CommandAmdRandom implements CommandExecutor {
 		Player p = (Player)sender;
 		if(args[0]!="") {
 			Boolean randomEnabled = Boolean.parseBoolean(args[0]);
-			if(p.hasPermission("simpleautomessage.setrandom")||p.isOp()) {
+			if(p.hasPermission("automessagedisplayer.setrandom")||p.isOp()) {
 				plugin.getConfig().set(RANDOM_CONFIG, randomEnabled);
 				
 				if(randomEnabled) {

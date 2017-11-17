@@ -19,7 +19,7 @@ public class CommandAmdTime implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		Player p = (Player)sender;
-		if(p.hasPermission("simpleautomessage.settime")||p.isOp()) {
+		if(p.hasPermission("automessagedisplayer.settime")||p.isOp()) {
 			plugin.getConfig().set(TIME_CONFIG, Integer.parseInt(args[0]));
 			p.sendMessage("§9Time set to : §f"+args[0]);
 			plugin.saveConfig();
