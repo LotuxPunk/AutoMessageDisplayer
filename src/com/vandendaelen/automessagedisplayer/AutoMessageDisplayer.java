@@ -67,14 +67,17 @@ public class AutoMessageDisplayer extends JavaPlugin {
 			@Override
 			public void run() {
 				if(getConfig().getBoolean("Enable")) {
-					if(!getConfig().getBoolean(RANDOM_CONFIG)) {
-						messageDisplayer(listMessages.get(iMessages));
-						iMessages++;
-						if (iMessages >= listMessages.size())
-							iMessages = 0;
-					} else {
-						messageDisplayer(listMessages.get(randomGenerator.nextInt(listMessages.size())));
+					if(Bukkit.getOnlinePlayers().size() >= getConfig().getInt(MIN_PLAYER_CONFIG)) {
+						if(!getConfig().getBoolean(RANDOM_CONFIG)) {
+							messageDisplayer(listMessages.get(iMessages));
+							iMessages++;
+							if (iMessages >= listMessages.size())
+								iMessages = 0;
+						} else {
+							messageDisplayer(listMessages.get(randomGenerator.nextInt(listMessages.size())));
+						}
 					}
+
 				}
 
 			}
