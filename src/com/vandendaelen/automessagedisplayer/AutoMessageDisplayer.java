@@ -15,8 +15,9 @@ import com.vandendaelen.automessagedisplayer.Commands.CommandAmdTime;
 public class AutoMessageDisplayer extends JavaPlugin {
 	public static final String RANDOM_CONFIG = "Random enabled";
 	public static final String TIME_CONFIG = "Time";
+	public static final String MIN_PLAYER_CONFIG = "Min player to enable";
 	private int iMessages = 0;
-	
+
 	@Override
 	public void onDisable() {
 		// TODO Auto-generated method stub
@@ -29,23 +30,16 @@ public class AutoMessageDisplayer extends JavaPlugin {
 		this.getCommand("amdtime").setExecutor(new CommandAmdTime(this, TIME_CONFIG));
 		this.getCommand("amdrandom").setExecutor(new CommandAmdRandom(this, RANDOM_CONFIG));
 		createConfig();
-		
+
 		this.getConfig().addDefault(RANDOM_CONFIG, false);
+		this.getConfig().addDefault(MIN_PLAYER_CONFIG, 1);
 		this.getConfig().options().copyDefaults(true);
 		saveConfig();
-		
+
 		//Enable display of messages
-		if(getConfig().getBoolean("Enable")) {
-			if(getConfig().getBoolean(RANDOM_CONFIG)) {
-				messageRandomDisplayer();
-			} else {
-				messageDisplayer();
-			}
-		}
-			
-		
+		messageManager();
 	}
-	
+
 	private void createConfig() {
 		try {
 			if (!getDataFolder().exists()) {
@@ -62,43 +56,35 @@ public class AutoMessageDisplayer extends JavaPlugin {
 			e.printStackTrace();
 		}
 	}
-	
-	private void messageDisplayer() {
-		List<String> listMessages = getConfig().getStringList("Messages");
-		System.out.println(listMessages.size()+" messages loaded");
-		BukkitScheduler scheduler = getServer().getScheduler();
-        scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
 
-			@Override
-			public void run() {
-				
-				for(Player player : Bukkit.getOnlinePlayers()) {
-					player.sendMessage(listMessages.get(iMessages));
-				}
-				iMessages++;
-				if (iMessages >= listMessages.size())
-					iMessages = 0;				
-			}
-        	
-        }, 0, this.getConfig().getInt("Time")*60*20);
-	}
-	
-	private void messageRandomDisplayer() {
+	private void messageManager() {
 		Random randomGenerator = new Random();
 		List<String> listMessages = getConfig().getStringList("Messages");
 		System.out.println(listMessages.size()+" messages loaded");
 		BukkitScheduler scheduler = getServer().getScheduler();
-        scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
+		scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
 
 			@Override
 			public void run() {
-				
-				for(Player player : Bukkit.getOnlinePlayers()) {
-					player.sendMessage(listMessages.get(randomGenerator.nextInt(listMessages.size())));
-				}			
+				if(getConfig().getBoolean("Enable")) {
+					if(!getConfig().getBoolean(RANDOM_CONFIG)) {
+						messageDisplayer(listMessages.get(iMessages));
+						iMessages++;
+						if (iMessages >= listMessages.size())
+							iMessages = 0;
+					} else {
+						messageDisplayer(listMessages.get(randomGenerator.nextInt(listMessages.size())));
+					}
+				}
+
 			}
-        	
-        }, 0, this.getConfig().getInt(TIME_CONFIG)*60*20);
+
+		}, 0, this.getConfig().getInt("Time")*60*20);
 	}
-	
+
+	public void messageDisplayer(String message) {
+		for(Player player : Bukkit.getOnlinePlayers()) {
+			player.sendMessage(message);
+		}		
+	}
 }
