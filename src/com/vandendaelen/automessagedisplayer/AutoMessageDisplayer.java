@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import com.vandendaelen.automessagedisplayer.Commands.CommandAmdList;
 import com.vandendaelen.automessagedisplayer.Commands.CommandAmdRandom;
 import com.vandendaelen.automessagedisplayer.Commands.CommandAmdTime;
 
@@ -27,8 +28,7 @@ public class AutoMessageDisplayer extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		System.out.println("Waw, an amazing plugin powered by LotuxPunk ! :-)");
-		this.getCommand("amdtime").setExecutor(new CommandAmdTime(this, TIME_CONFIG));
-		this.getCommand("amdrandom").setExecutor(new CommandAmdRandom(this, RANDOM_CONFIG));
+		registerCommands();
 		createConfig();
 
 		this.getConfig().addDefault(RANDOM_CONFIG, false);
@@ -38,6 +38,12 @@ public class AutoMessageDisplayer extends JavaPlugin {
 
 		//Enable display of messages
 		messageManager();
+	}
+	
+	private void registerCommands() {
+		this.getCommand("amdtime").setExecutor(new CommandAmdTime(this, TIME_CONFIG));
+		this.getCommand("amdrandom").setExecutor(new CommandAmdRandom(this, RANDOM_CONFIG));
+		this.getCommand("amdlist").setExecutor(new CommandAmdList(this, this.getListMessages()));
 	}
 
 	private void createConfig() {
@@ -59,7 +65,7 @@ public class AutoMessageDisplayer extends JavaPlugin {
 
 	private void messageManager() {
 		Random randomGenerator = new Random();
-		List<String> listMessages = getConfig().getStringList("Messages");
+		List<String> listMessages = getListMessages();
 		System.out.println(listMessages.size()+" messages loaded");
 		BukkitScheduler scheduler = getServer().getScheduler();
 		scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
@@ -83,6 +89,10 @@ public class AutoMessageDisplayer extends JavaPlugin {
 			}
 
 		}, 0, this.getConfig().getInt("Time")*60*20);
+	}
+	
+	public List<String> getListMessages() {
+		return getConfig().getStringList("Messages");
 	}
 
 	public void messageDisplayer(String message) {
