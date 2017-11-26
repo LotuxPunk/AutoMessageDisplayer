@@ -12,11 +12,14 @@ import org.bukkit.scheduler.BukkitScheduler;
 import com.vandendaelen.automessagedisplayer.Commands.CommandAmdList;
 import com.vandendaelen.automessagedisplayer.Commands.CommandAmdRandom;
 import com.vandendaelen.automessagedisplayer.Commands.CommandAmdTime;
+import com.vandendaelen.automessagedisplayer.Listener.PlayerListener;
 
 public class AutoMessageDisplayer extends JavaPlugin {
 	public static final String RANDOM_CONFIG = "Random enabled";
 	public static final String TIME_CONFIG = "Time";
 	public static final String MIN_PLAYER_CONFIG = "Min player to enable";
+	public static final String MESS_ON_PLAY_JOIN_CONFIG = "Message on player join";
+	public static final String MESS_ON_PLAY_JOIN_ENABLE_CONFIG = "Message on player join enabled";
 	private int iMessages = 0;
 
 	@Override
@@ -29,15 +32,22 @@ public class AutoMessageDisplayer extends JavaPlugin {
 	public void onEnable() {
 		System.out.println("Waw, an amazing plugin powered by LotuxPunk ! :-)");
 		registerCommands();
+		registerListener();
+		
 		createConfig();
-
 		this.getConfig().addDefault(RANDOM_CONFIG, false);
 		this.getConfig().addDefault(MIN_PLAYER_CONFIG, 1);
+		this.getConfig().addDefault(MESS_ON_PLAY_JOIN_ENABLE_CONFIG, true);
+		this.getConfig().addDefault(MESS_ON_PLAY_JOIN_CONFIG, "§9Welcome !");
 		this.getConfig().options().copyDefaults(true);
 		saveConfig();
 
 		//Enable display of messages
 		messageManager();
+	}
+	
+	private void registerListener() {
+		this.getServer().getPluginManager().registerEvents(new PlayerListener(MESS_ON_PLAY_JOIN_CONFIG, MESS_ON_PLAY_JOIN_ENABLE_CONFIG, this), this); 
 	}
 	
 	private void registerCommands() {

@@ -13,3 +13,6 @@ Messages:
   
 Min player to enable: 1
 
+Message on player join enabled: true
+Message on player join: "§9Welcome !"
+
