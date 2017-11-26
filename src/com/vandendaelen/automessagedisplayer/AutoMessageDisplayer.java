@@ -12,7 +12,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 import com.vandendaelen.automessagedisplayer.Commands.CommandAmdList;
 import com.vandendaelen.automessagedisplayer.Commands.CommandAmdRandom;
 import com.vandendaelen.automessagedisplayer.Commands.CommandAmdTime;
-import com.vandendaelen.automessagedisplayer.Listener.PlayerListener;
+import com.vandendaelen.automessagedisplayer.Listeners.PlayerListener;
 
 public class AutoMessageDisplayer extends JavaPlugin {
 	public static final String RANDOM_CONFIG = "Random enabled";

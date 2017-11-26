@@ -1,4 +1,4 @@
-package com.vandendaelen.automessagedisplayer.Listener;
+package com.vandendaelen.automessagedisplayer.Listeners;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
