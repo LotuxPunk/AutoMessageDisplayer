@@ -15,11 +15,15 @@ import com.vandendaelen.automessagedisplayer.Commands.CommandAmdTime;
 import com.vandendaelen.automessagedisplayer.Listeners.PlayerListener;
 
 public class AutoMessageDisplayer extends JavaPlugin {
+	//Const
 	public static final String RANDOM_CONFIG = "Random enabled";
 	public static final String TIME_CONFIG = "Time";
 	public static final String MIN_PLAYER_CONFIG = "Min player to enable";
+	public static final String MESS_CONFIG = "Messages";
 	public static final String MESS_ON_PLAY_JOIN_CONFIG = "Message on player join";
 	public static final String MESS_ON_PLAY_JOIN_ENABLE_CONFIG = "Message on player join enabled";
+	public static final String PREFIX_CONFIG = "Prefix";
+	//Var
 	private int iMessages = 0;
 
 	@Override
@@ -43,7 +47,8 @@ public class AutoMessageDisplayer extends JavaPlugin {
 		this.getConfig().addDefault(RANDOM_CONFIG, false);
 		this.getConfig().addDefault(MIN_PLAYER_CONFIG, 1);
 		this.getConfig().addDefault(MESS_ON_PLAY_JOIN_ENABLE_CONFIG, true);
-		this.getConfig().addDefault(MESS_ON_PLAY_JOIN_CONFIG, "§9Welcome !");
+		this.getConfig().addDefault(MESS_ON_PLAY_JOIN_CONFIG, "&9Welcome !");
+		this.getConfig().addDefault(PREFIX_CONFIG, "[&9Server&r]");
 		this.getConfig().options().copyDefaults(true);
 		saveConfig();
 	}
@@ -87,12 +92,12 @@ public class AutoMessageDisplayer extends JavaPlugin {
 				if(getConfig().getBoolean("Enable")) {
 					if(Bukkit.getOnlinePlayers().size() >= getConfig().getInt(MIN_PLAYER_CONFIG)) {
 						if(!getConfig().getBoolean(RANDOM_CONFIG)) {
-							messageDisplayer(listMessages.get(iMessages));
+							messageDisplayer(switchChar(getPrefix() + " " + listMessages.get(iMessages)));
 							iMessages++;
 							if (iMessages >= listMessages.size())
 								iMessages = 0;
 						} else {
-							messageDisplayer(listMessages.get(randomGenerator.nextInt(listMessages.size())));
+							messageDisplayer(switchChar(getPrefix() + " " + listMessages.get(randomGenerator.nextInt(listMessages.size()))));
 						}
 					}
 
@@ -103,13 +108,21 @@ public class AutoMessageDisplayer extends JavaPlugin {
 		}, 0, this.getConfig().getInt("Time")*60*20);
 	}
 	
+	public String getPrefix() {
+		return getConfig().getString(PREFIX_CONFIG);
+	}
+	
 	public List<String> getListMessages() {
-		return getConfig().getStringList("Messages");
+		return getConfig().getStringList(MESS_CONFIG);
 	}
 
 	public void messageDisplayer(String message) {
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			player.sendMessage(message);
 		}		
+	}
+	
+	public String switchChar(String message) {
+		return message.replace('&', '§');
 	}
 }

@@ -11,8 +11,10 @@ Messages:
   - "Another string"
   - "Don't forget to support/rate LotuxPunk on Curse/Bukkit website !"
   
+Prefix: "[&9Server&r]"
+  
 Min player to enable: 1
 
 Message on player join enabled: true
-Message on player join: "§9Welcome !"
+Message on player join: "&9Welcome !"
 
