@@ -32,7 +32,7 @@ public class CommandAmdList implements CommandExecutor {
 	public void messagesDisplayer(Player p) {
 		if(!messages.isEmpty()) {
 			for(int i = 0; i < messages.size(); i++){
-				p.sendMessage(i+". "+messages.get(i));
+				p.sendMessage(i + 1 + ". "+messages.get(i));
 			}
 		} else {
 			p.sendMessage("§9List is empty");
