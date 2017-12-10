@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import com.vandendaelen.automessagedisplayer.Commands.CommandAmdList;
 import com.vandendaelen.automessagedisplayer.Commands.CommandAmdRandom;
+import com.vandendaelen.automessagedisplayer.Commands.CommandAmdShow;
 import com.vandendaelen.automessagedisplayer.Commands.CommandAmdTime;
 import com.vandendaelen.automessagedisplayer.Listeners.PlayerListener;
 
-public class AutoMessageDisplayer extends JavaPlugin {
+public class AutoMessageDisplayer extends JavaPlugin implements MessageManager {
 	//Const
 	public static final String RANDOM_CONFIG = "Random enabled";
 	public static final String TIME_CONFIG = "Time";
@@ -60,7 +60,8 @@ public class AutoMessageDisplayer extends JavaPlugin {
 	private void registerCommands() {
 		this.getCommand("amdtime").setExecutor(new CommandAmdTime(this, TIME_CONFIG));
 		this.getCommand("amdrandom").setExecutor(new CommandAmdRandom(this, RANDOM_CONFIG));
-		this.getCommand("amdlist").setExecutor(new CommandAmdList(this, this.getListMessages()));
+		this.getCommand("amdlist").setExecutor(new CommandAmdList(getListMessages()));
+		this.getCommand("amdshow").setExecutor(new CommandAmdShow(getListMessages()));
 	}
 
 	private void createConfig() {
@@ -92,12 +93,12 @@ public class AutoMessageDisplayer extends JavaPlugin {
 				if(getConfig().getBoolean("Enable")) {
 					if(Bukkit.getOnlinePlayers().size() >= getConfig().getInt(MIN_PLAYER_CONFIG)) {
 						if(!getConfig().getBoolean(RANDOM_CONFIG)) {
-							messageDisplayer(switchChar(getPrefix() + " " + listMessages.get(iMessages)));
+							MessageManager.messageDisplayer(getPrefix() + " " + listMessages.get(iMessages));
 							iMessages++;
 							if (iMessages >= listMessages.size())
 								iMessages = 0;
 						} else {
-							messageDisplayer(switchChar(getPrefix() + " " + listMessages.get(randomGenerator.nextInt(listMessages.size()))));
+							MessageManager.messageDisplayer(getPrefix() + " " + listMessages.get(randomGenerator.nextInt(listMessages.size())));
 						}
 					}
 
@@ -108,21 +109,13 @@ public class AutoMessageDisplayer extends JavaPlugin {
 		}, 0, this.getConfig().getInt("Time")*60*20);
 	}
 	
-	public String getPrefix() {
+	private String getPrefix() {
 		return getConfig().getString(PREFIX_CONFIG);
 	}
 	
-	public List<String> getListMessages() {
+	private List<String> getListMessages() {
 		return getConfig().getStringList(MESS_CONFIG);
 	}
-
-	public void messageDisplayer(String message) {
-		for(Player player : Bukkit.getOnlinePlayers()) {
-			player.sendMessage(message);
-		}		
-	}
 	
-	public String switchChar(String message) {
-		return message.replace('&', '§');
-	}
+	
 }

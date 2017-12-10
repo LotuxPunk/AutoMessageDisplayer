@@ -6,16 +6,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 public class CommandAmdList implements CommandExecutor {
 
-	Plugin plugin;
-	List<String> messages;
+	private List<String> messages;
 
 
-	public CommandAmdList(Plugin pl,List<String> m) {
-		plugin = pl;
+	public CommandAmdList(List<String> m) {
 		messages = m;
 	}
 
