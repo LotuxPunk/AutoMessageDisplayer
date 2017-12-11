@@ -1,6 +1,6 @@
 name: AutoMessageDisplayer
 main: com.vandendaelen.automessagedisplayer.AutoMessageDisplayer
-version: 0.10
+version: 0.11
 author: LotuxPunk
 website: https://github.com/LotuxPunk/AutoMessageDisplayer
 commands:
@@ -16,6 +16,9 @@ commands:
   amdshow:
     description: Broadcast a message manually
     usage: /amdshow [number]
+  amdadd:
+    description: Add a message
+    usage: /amdadd [message]
 permissions:
   automessagedisplayer.*:
     description: Gives access to all AMD commands
@@ -32,4 +35,6 @@ permissions:
       automessagedisplayer.show:
         description: Allow to broadcast a message manually
         default: op
-        
+      automessagedisplayer.add:
+        description: Allow to add a message
+        default: op

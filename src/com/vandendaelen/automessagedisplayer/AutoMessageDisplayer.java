@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import com.vandendaelen.automessagedisplayer.Commands.CommandAmdAdd;
 import com.vandendaelen.automessagedisplayer.Commands.CommandAmdList;
 import com.vandendaelen.automessagedisplayer.Commands.CommandAmdRandom;
 import com.vandendaelen.automessagedisplayer.Commands.CommandAmdShow;
@@ -62,6 +63,7 @@ public class AutoMessageDisplayer extends JavaPlugin implements MessageManager {
 		this.getCommand("amdrandom").setExecutor(new CommandAmdRandom(this, RANDOM_CONFIG));
 		this.getCommand("amdlist").setExecutor(new CommandAmdList(getListMessages()));
 		this.getCommand("amdshow").setExecutor(new CommandAmdShow(getListMessages()));
+		this.getCommand("amdadd").setExecutor(new CommandAmdAdd(getListMessages(),this, MESS_CONFIG));
 	}
 
 	private void createConfig() {

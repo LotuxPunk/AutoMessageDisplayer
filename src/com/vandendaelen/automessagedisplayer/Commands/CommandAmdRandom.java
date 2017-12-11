@@ -19,15 +19,15 @@ public class CommandAmdRandom implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		Player p = (Player)sender;
-		if(args[0]!="") {
+		if(args.length >= 1) {
 			Boolean randomEnabled = Boolean.parseBoolean(args[0]);
 			if(p.hasPermission("automessagedisplayer.setrandom")||p.isOp()) {
 				plugin.getConfig().set(RANDOM_CONFIG, randomEnabled);
 				
 				if(randomEnabled) {
-					p.sendMessage("§2Random enabled");
+					p.sendMessage("§2Random enabled. Do /reload");
 				} else {
-					p.sendMessage("§4Random disabled");
+					p.sendMessage("§4Random disabled. Do /reload");
 				}
 				plugin.saveConfig();
 				plugin.reloadConfig();
