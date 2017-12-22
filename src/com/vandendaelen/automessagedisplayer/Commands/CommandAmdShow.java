@@ -20,9 +20,9 @@ public class CommandAmdShow implements CommandExecutor, MessageManager {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		Player p = (Player)sender;
-		if(args.length >= 1) {
-			int iMessage = Integer.parseInt(args[0]) - 1;
-			if(p.hasPermission("automessagedisplayer.show")||p.isOp()) {
+		if(p.hasPermission("automessagedisplayer.show")||p.isOp()) {
+			if(args.length >= 1) {
+				int iMessage = Integer.parseInt(args[0]) - 1;
 				if(messages.size() >= iMessage+1 && iMessage+1 > 0) {
 					MessageManager.messageDisplayer("[&d"+p.getName()+"&r] "+messages.get(iMessage));
 				} else {

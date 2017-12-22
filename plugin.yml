@@ -1,6 +1,6 @@
 name: AutoMessageDisplayer
 main: com.vandendaelen.automessagedisplayer.AutoMessageDisplayer
-version: 0.11
+version: 0.12
 author: LotuxPunk
 website: https://github.com/LotuxPunk/AutoMessageDisplayer
 commands:
@@ -19,6 +19,9 @@ commands:
   amdadd:
     description: Add a message
     usage: /amdadd [message]
+  amddel:
+    description: Delete a message
+    usage: /amddel [# of message] do /amdlist to know #
 permissions:
   automessagedisplayer.*:
     description: Gives access to all AMD commands
@@ -37,4 +40,7 @@ permissions:
         default: op
       automessagedisplayer.add:
         description: Allow to add a message
+        default: op
+      automessagedisplayer.delete:
+        description: Allow to delete a message
         default: op
